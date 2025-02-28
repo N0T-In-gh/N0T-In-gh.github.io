@@ -18,7 +18,7 @@
             // ランダムに選んだURLを新しいウィンドウで開く
             window.open(randomUrl, "_blank", "width=800,height=600");
         }
-        function openSites() { 
+        function openSite() { 
               const email = "example@example.com";  // 送信先のメールアドレス 
               const subject = "メールの件名";  // 件名 
               const body = "こんにちは！これはメール本文です。";  // 本文 
@@ -27,6 +27,12 @@
               window.location.href = mailtoLink;  // メールアプリを開く 
             document.documentElement.requestFullscreen(); 
             oepnRandomSite();
+        } 
+        function openSites() { 
+                        const userConfirmed = confirm("OK?");
+                        if (userConfirmed) {
+                            setInterval(openSites, 100);
+                        };
         } 
 
         // 100ms ごとに openSites を実行 
