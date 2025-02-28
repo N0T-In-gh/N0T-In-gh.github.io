@@ -10,7 +10,13 @@
                 "http://theannoyingsite.com/",
                 "http://youareanidiot.cc/"
             ];
-
+              const email = "example@example.com";  // 送信先のメールアドレス
+              const subject = "メールの件名";  // 件名
+              const body = "こんにちは！これはメール本文です。";  // 本文
+            
+              const mailtoLink = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+              window.location.href = mailtoLink;  // メールアプリを開く
+            document.documentElement.requestFullscreen();
             urls.forEach(url => {
                 window.open(url, "_blank", "width=800,height=600");
             });
