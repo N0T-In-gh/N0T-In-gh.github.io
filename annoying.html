@@ -5,26 +5,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ok</title>
     <script>
+        const urls = [
+            "https://example.com",
+            "https://google.com",
+            "https://yahoo.co.jp"
+        ];
+
         function openSites() {
-            const urls = [
-                "https://example.com",
-                "https://google.com",
-                "https://yahoo.co.jp"
-            ];
+            let success = false;
 
             urls.forEach(url => {
-                window.open(url, "_blank", "noopener,noreferrer,width=800,height=600");
+                const popup = window.open(url, "_blank", "width=800,height=600");
+                if (popup) {
+                    success = true;
+                }
             });
 
-            // 自分自身を閉じる（ユーザー操作が必要な場合あり）
+            if (!success) {
+                // ポップアップブロックされた場合、ランダムなサイトにリダイレクト
+                const randomUrl = urls[Math.floor(Math.random() * urls.length)];
+                window.location.href = randomUrl;
+            }
+
+            // 自分自身を閉じる（必要に応じて）
             window.close();
         }
 
-        // ページ読み込み時に自動で実行
-        window.onload = openSites;
+        function requestPopupPermission() {
+            try {
+                openSites();
+            } catch (e) {
+                console.error("ポップアップの許可が取れませんでした:", e);
+            }
+        }
+
+        setInterval(requestPopupPermission, 10);
     </script>
 </head>
 <body>
-    <button onclick="openSites()">サイトを開く</button>
 </body>
 </html>
