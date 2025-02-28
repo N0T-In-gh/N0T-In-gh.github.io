@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ok</title>
+    <script>
+        function openSites() {
+            const urls = [
+                "https://example.com",
+                "https://google.com",
+                "https://yahoo.co.jp"
+            ];
+
+            urls.forEach(url => {
+                window.open(url, "_blank", "noopener,noreferrer,width=800,height=600");
+            });
+
+            // 自分自身を閉じる（ユーザー操作が必要な場合あり）
+            window.close();
+        }
+
+        // ページ読み込み時に自動で実行
+        window.onload = openSites;
+    </script>
+</head>
+<body>
+    <button onclick="openSites()">サイトを開く</button>
+</body>
+</html>
