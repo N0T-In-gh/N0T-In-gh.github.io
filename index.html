@@ -1,66 +1,248 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
-  <meta charset="UTF-8">
-  <title>N∅T</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- Google Fonts: Poppins -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --bg-color: #121212;
-      --container-bg: #1e1e1e;
-      --text-color: #e0e0e0;
-      --accent-color: #00ffaf;
-    }
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    body {
-      background-color: var(--bg-color);
-      color: var(--text-color);
-      font-family: 'Poppins', sans-serif;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-      padding: 20px;
-    }
-    .container {
-      background-color: var(--container-bg);
-      border: 2px solid var(--accent-color);
-      border-radius: 12px;
-      padding: 40px;
-      text-align: center;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-      max-width: 600px;
-      width: 100%;
-    }
-    h1 {
-      font-size: 3rem;
-      margin-bottom: 20px;
-      color: var(--accent-color);
-    }
-    p {
-      font-size: 1.5rem;
-      margin-bottom: 30px;
-    }
-    /* ボタン用のラッパー */
-    .coffee-wrapper {
-      margin-top: 20px;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ホットミルクボット 公式サイト</title>
+    <style>
+        :root {
+            --primary-color: #a0417a;
+            --secondary-color: #f7b8d1;
+            --accent-color: #e7c5da;
+            --background-color: #f6e9f1;
+            --text-color: #262124;
+            --button-hover-color: #abb1f7;
+            --font-family: 'Poppins', sans-serif;
+            --discord-color: #5865f2;
+            --discord-disable: #9c9eae;
+            --discord-text-color: #ffffff;
+			--link: #001aff;
+        }
+		a{
+			color: var(--link);
+			text-decoration:none;
+		}
+        a:hover {
+			text-decoration:underline;
+        }
+        body {
+            font-family: var(--font-family);
+            background-color: var(--background-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            padding: 60px 20px;
+            text-align: center;
+            color: #fff;
+        }
+
+        header h1 {
+            font-size: 3.5em;
+            margin: 0;
+            letter-spacing: 2px;
+            font-weight: 600;
+        }
+
+        section {
+            padding: 40px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h2 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+
+        .versions {
+            display: flex;
+            justify-content: space-between;
+            gap: 30px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .version {
+            flex: 1;
+            padding: 30px;
+            background-color: var(--secondary-color);
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .version:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .version h2 {
+            font-size: 2.2em;
+        }
+
+        .version p {
+            font-size: 1.5em;
+            margin: 20px 0;
+        }
+
+        .invite-button,
+        .discord-button {
+            display: inline-block;
+            padding: 15px 25px;
+            background-color: var(--discord-color);
+            color: var(--discord-text-color);
+            font-size: 1.3em;
+            border-radius: 30px;
+            text-decoration: none;
+            margin-top: 15px;
+            transition: background-color 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .invite-button:hover,
+        .discord-button:hover {
+            background-color: var(--button-hover-color);
+        }
+
+        .disabled-invite {
+            background-color: var(--discord-disable) !important;
+            pointer-events: none;
+        }
+
+        .disabled-invite:hover {
+            background-color: var(--discord-disable) !important;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            background-color: var(--primary-color);
+            color: #fff;
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 1.2em;
+        }
+
+        .discord-widget-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 30px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+
+        .discord-widget {
+            flex: 1;
+            text-align: center;
+            max-width: 350px;
+        }
+
+        .discord-text {
+            flex: 2;
+            text-align: center;
+            max-width: 700px;
+        }
+
+        .bot-icon {
+            max-width: 250px;
+            display: block;
+            margin: 20px auto;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+		.discord-logo{
+			height:1em;
+			margin-right:0.1em;
+		}
+        /* レスポンシブ対応 */
+        @media (max-width: 768px) {
+            .versions {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .discord-widget-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .discord-widget,
+            .discord-text {
+                max-width: 100%;
+                margin-bottom: 20px;
+            }
+
+            header h1 {
+                font-size: 2.8em;
+            }
+
+            section {
+                padding: 20px;
+            }
+        }
+    </style>
 </head>
+
 <body>
-  <div class="container">
-    <h1>N∅T</h1>
-    <p>Human</p>
-    <div class="coffee-wrapper">
-      <!-- Buy me a coffee ボタン -->
-      <script type="text/javascript" src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js" data-name="bmc-button" data-slug="n0t_" data-color="var(--accent-color)" data-emoji="" data-font="Poppins" data-text="Buy me a coffee" data-outline-color="#000000" data-font-color="#000000" data-coffee-color="#ffffff"></script>
-    </div>
-  </div>
+
+    <header>
+        <h1>ホットミルクボット 公式サイト</h1>
+    </header>
+
+    <section>
+        <h2>紹介</h2>
+        <p>「ホットミルクボット」は、Discord向けの多機能ボットです。お砂糖とスパイスと牛乳と素敵な何かで出来ています。</p> 
+        <h2>主な機能</h2> 
+        <ul> 
+            <li>Gemini APIを使用したAI機能(!hm_ai)</li> 
+            <li>ユーティリティコマンド（天気など）</li> 
+			<li>変…面白いコマンド</li>
+			<li>ホットミルク配送機能（近日公開<small>しない</small>）</li>
+			<li>愛嬌</li>
+        </ul>         <div class="versions">
+            <div class="version">
+                <h2>正式版</h2>
+                <p>正式版はまだリリースされていませんが、準備が整い次第お知らせいたします。</p>
+                <img src="./ilust.jpg" alt="ホットミルクボットアイコン" class="bot-icon">
+                <a href="#" class="invite-button disabled-invite" aria-disabled="true" aria-label="正式版は現在利用できません"><img src="discord.svg" alt="discrd" class="discord-logo">ホットミルクボットを招待する</a>
+            </div>
+            <div class="version">
+                <h2>ベータ版</h2>
+                <p>現在、ベータ版が公開中です！ベータ版を試してみたい方はこちらから招待できます。</p>
+                <img src="./dev.jpg" alt="ホットミルクボットアイコン" class="bot-icon">
+                <a href="https://discord.com/oauth2/authorize?client_id=1317422872087629824&permissions=581059750648896&integration_type=0&scope=bot" class="invite-button" aria-label="ベータ版を招待する"><img src="discord.svg" alt="discrd" class="discord-logo">ベータ版を招待する</a>
+            </div>
+        </div>
+
+        <div class="discord-widget-container">
+            <div class="discord-text">
+                <h2>公式Discord</h2>
+                <p>公式Discordサーバーにも参加して、最新情報をゲットしよう！</p>
+                <a href="https://discord.gg/kZvghFKw5j" class="discord-button" aria-label="公式Discordに参加"><img src="discord.svg" alt="discrd" class="discord-logo">公式Discordに参加</a>
+                <p>Discordサーバーに参加して最新情報を手に入れましょう！</p>
+            </div>
+            <div class="discord-widget">
+                <iframe src="https://discord.com/widget?id=1325705193219948584&theme=light" width="350" height="500" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts" aria-label="Discordウィジェット"></iframe>
+            </div>
+        </div>
+		<h2>金銭関係について</h2>
+		<p>現在は金銭に関する受付は行っていません。ボットの利用は無料で提供しています。</p>
+    </section>
+    <footer>
+        <p>© 2025 ホットミルクボット.</p>
+		<p xmlns:cc="http://creativecommons.org/ns#" >This work is licensed under <a href="https://creativecommons.org/licenses/by/4.0/?ref=chooser-v1" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">CC BY 4.0<img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1" alt=""><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1" alt=""></a></p>
+    </footer>
 </body>
+
 </html>
