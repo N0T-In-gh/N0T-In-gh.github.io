@@ -1,247 +1,233 @@
 <!DOCTYPE html>
 <html lang="ja">
+	<head>
+		<meta charset="UTF-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+		<title>ホットミルクボット 公式サイト</title>
+		<link rel="icon" href="hotmilk.ico"/>
+		<style>
+			:root {
+				--primary-color: #a0417a;
+				--secondary-color: #f7b8d1;
+				--accent-color: #e7c5da;
+				--background-color: #f6e9f1;
+				--text-color: #262124;
+				--button-hover-color: #abb1f7;
+				--font-family: 'Poppins', sans-serif;
+				--discord-color: #5865f2;
+				--discord-disable: #9c9eae;
+				--discord-text-color: #ffffff;
+				--link: #001aff;
+			}
+			a{
+				color: var(--link);
+				text-decoration:none;
+			}
+			a:hover {
+				text-decoration:underline;
+			}
+			body {
+				font-family: var(--font-family);
+				background-color: var(--background-color);
+				color: var(--text-color);
+				margin: 0;
+				padding: 0;
+			}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ホットミルクボット 公式サイト</title>
-	<link rel="icon" href="icon.ico">
-    <style>
-        :root {
-            --primary-color: #a0417a;
-            --secondary-color: #f7b8d1;
-            --accent-color: #e7c5da;
-            --background-color: #f6e9f1;
-            --text-color: #262124;
-            --button-hover-color: #abb1f7;
-            --font-family: 'Poppins', sans-serif;
-            --discord-color: #5865f2;
-            --discord-disable: #9c9eae;
-            --discord-text-color: #ffffff;
-			--link: #001aff;
-        }
-		a{
-			color: var(--link);
-			text-decoration:none;
-		}
-        a:hover {
-			text-decoration:underline;
-        }
-        body {
-            font-family: var(--font-family);
-            background-color: var(--background-color);
-            color: var(--text-color);
-            margin: 0;
-            padding: 0;
-        }
+			header {
+				background-color: var(--primary-color);
+				padding: 60px 20px;
+				text-align: center;
+				color: #fff;
+			}
 
-        header {
-            background-color: var(--primary-color);
-            padding: 60px 20px;
-            text-align: center;
-            color: #fff;
-        }
+			header h1 {
+				font-size: 3.5em;
+				margin: 0;
+				letter-spacing: 2px;
+				font-weight: 600;
+			}
 
-        header h1 {
-            font-size: 3.5em;
-            margin: 0;
-            letter-spacing: 2px;
-            font-weight: 600;
-        }
+			section {
+				padding: 40px 20px;
+				max-width: 1200px;
+				margin: 0 auto;
+			}
 
-        section {
-            padding: 40px 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
+			h2 {
+				font-size: 2.5em;
+				margin-bottom: 20px;
+				color: var(--primary-color);
+			}
 
-        h2 {
-            font-size: 2.5em;
-            margin-bottom: 20px;
-            color: var(--primary-color);
-        }
+			.versions {
+				display: flex;
+				justify-content: space-between;
+				gap: 30px;
+				margin: 30px 0;
+				flex-wrap: wrap;
+			}
 
-        .versions {
-            display: flex;
-            justify-content: space-between;
-            gap: 30px;
-            margin: 30px 0;
-            flex-wrap: wrap;
-        }
+			.version {
+				flex: 1;
+				padding: 30px;
+				background-color: var(--secondary-color);
+				border-radius: 15px;
+				text-align: center;
+				box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+				margin-bottom: 20px;
+				transition: transform 0.3s ease, box-shadow 0.3s ease;
+			}
 
-        .version {
-            flex: 1;
-            padding: 30px;
-            background-color: var(--secondary-color);
-            border-radius: 15px;
-            text-align: center;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-            margin-bottom: 20px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
+			.version:hover {
+				transform: translateY(-10px);
+				box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+			}
 
-        .version:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
-        }
+			.version h2 {
+				font-size: 2.2em;
+			}
 
-        .version h2 {
-            font-size: 2.2em;
-        }
+			.version p {
+				font-size: 1.5em;
+				margin: 20px 0;
+			}
 
-        .version p {
-            font-size: 1.5em;
-            margin: 20px 0;
-        }
+			.invite-button,
+			.discord-button {
+				display: inline-block;
+				padding: 15px 25px;
+				background-color: var(--discord-color);
+				color: var(--discord-text-color);
+				font-size: 1.3em;
+				border-radius: 30px;
+				text-decoration: none;
+				margin-top: 15px;
+				transition: background-color 0.3s ease;
+				box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+			}
 
-        .invite-button,
-        .discord-button {
-            display: inline-block;
-            padding: 15px 25px;
-            background-color: var(--discord-color);
-            color: var(--discord-text-color);
-            font-size: 1.3em;
-            border-radius: 30px;
-            text-decoration: none;
-            margin-top: 15px;
-            transition: background-color 0.3s ease;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
+			.invite-button:hover,
+			.discord-button:hover {
+				background-color: var(--button-hover-color);
+			}
 
-        .invite-button:hover,
-        .discord-button:hover {
-            background-color: var(--button-hover-color);
-        }
+			.disabled-invite {
+				background-color: var(--discord-disable) !important;
+				pointer-events: none;
+			}
 
-        .disabled-invite {
-            background-color: var(--discord-disable) !important;
-            pointer-events: none;
-        }
+			.disabled-invite:hover {
+				background-color: var(--discord-disable) !important;
+			}
 
-        .disabled-invite:hover {
-            background-color: var(--discord-disable) !important;
-        }
+			footer {
+				text-align: center;
+				padding: 30px;
+				background-color: var(--primary-color);
+				color: #fff;
+			}
 
-        footer {
-            text-align: center;
-            padding: 30px;
-            background-color: var(--primary-color);
-            color: #fff;
-        }
+			footer p {
+				margin: 0;
+				font-size: 1.2em;
+			}
 
-        footer p {
-            margin: 0;
-            font-size: 1.2em;
-        }
+			.discord-widget-container {
+				display: flex;
+				justify-content: space-between;
+				align-items: flex-start;
+				gap: 30px;
+				margin-top: 40px;
+				flex-wrap: wrap;
+			}
 
-        .discord-widget-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            gap: 30px;
-            margin-top: 40px;
-            flex-wrap: wrap;
-        }
+			.discord-widget {
+				flex: 1;
+				text-align: center;
+				max-width: 350px;
+			}
 
-        .discord-widget {
-            flex: 1;
-            text-align: center;
-            max-width: 350px;
-        }
+			.discord-text {
+				flex: 2;
+				text-align: center;
+				max-width: 700px;
+			}
 
-        .discord-text {
-            flex: 2;
-            text-align: center;
-            max-width: 700px;
-        }
+			.bot-icon {
+				max-width: 250px;
+				display: block;
+				margin: 20px auto;
+				border-radius: 10px;
+				box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+			}
+			.discord-logo{
+				height:1em;
+				margin-right:0.1em;
+			}
+			/* レスポンシブ対応 */
+			@media (max-width: 768px) {
+				.versions {
+					flex-direction: column;
+					align-items: center;
+				}
 
-        .bot-icon {
-            max-width: 250px;
-            display: block;
-            margin: 20px auto;
-            border-radius: 10px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        }
-		.discord-logo{
-			height:1em;
-			margin-right:0.1em;
-		}
-        /* レスポンシブ対応 */
-        @media (max-width: 768px) {
-            .versions {
-                flex-direction: column;
-                align-items: center;
-            }
+				.discord-widget-container {
+					flex-direction: column;
+					align-items: center;
+				}
 
-            .discord-widget-container {
-                flex-direction: column;
-                align-items: center;
-            }
+				.discord-widget,
+				.discord-text {
+					max-width: 100%;
+					margin-bottom: 20px;
+				}
 
-            .discord-widget,
-            .discord-text {
-                max-width: 100%;
-                margin-bottom: 20px;
-            }
+				header h1 {
+					font-size: 2.8em;
+				}
 
-            header h1 {
-                font-size: 2.8em;
-            }
+				section {
+					padding: 20px;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<header>
+			<h1>ホットミルクボット セキュリティーポリシー</h1>
+		</header>
+		<section>
+			<p><strong>目的</strong><br/>ホットミルクボット（以下、ボット）のセキュリティは、ユーザーの安全と信頼性を確保するために不可欠です。本ポリシーは、ボットが提供するサービスに関して、ユーザー情報の保護およびシステムの健全性を維持することを目的としています。</p>
+			<p><strong>適用範囲</strong><br/>このポリシーは、ホットミルクボットのベータ版および正式版を利用する全てのユーザーに適用されます。</p>
+			<h2>ベータ版の注意事項</h2>
+			<ul>
+				<li><strong>セキュリティリスクの可能性:</strong>ベータ版においては、新機能の試験や改善が行われているため、想定外の不具合やセキュリティ上の問題が発生する可能性があります。これにより、一部ユーザーのデータやメッセージが誤って処理されることがあります。</li>
 
-            section {
-                padding: 20px;
-            }
-        }
-    </style>
-</head>
+				<li><strong>収集されるデータ:</strong>ボットは、サーバー名、チャンネル名、ユーザー名、メッセージ内容に関する情報を収集します。これらの情報は、サービス提供のために必要不可欠であり、ボットのパフォーマンス向上のために使用されますが、その他の個人情報やデータは収集しません。</li>
 
-<body>
+				<li><strong>問題が発生した場合:</strong>ベータ版の使用中にセキュリティ上の問題や不具合が発生した場合、ボットは<em class="important">緊急停止</em>し、エラーの改善に全力で努めます。ユーザーに不安を与えないよう迅速な対応を行いますが、完全な保証はできません。問題が発生した際は速やかにサポート窓口へご連絡ください。</li>
+			</ul>
+			<h2>正式版のセキュリティ対策</h2>
+			<ul>
+				<li><strong>セキュリティ向上:</strong>正式版では、ベータ版におけるセキュリティの問題点を完全に除去し、強化されたセキュリティ機能を実装します。これにより、ボットの信頼性が向上し、ユーザーの個人情報がより安全に保護されます。</li>
 
-    <header>
-        <h1>ホットミルクボット セキュリティーポリシー</h1>
-    </header>
+				<li><strong>データ管理:</strong>正式版では、収集される情報に関しても明確な取り扱い基準を設け、適切な暗号化技術を用いてデータの保護を行います。ユーザーの同意なく、個人情報の第三者提供は行いません。</li>
 
-    <section>
-		<p><strong>目的</strong><br>
-		ホットミルクボット（以下、ボット）のセキュリティは、ユーザーの安全と信頼性を確保するために不可欠です。本ポリシーは、ボットが提供するサービスに関して、ユーザー情報の保護およびシステムの健全性を維持することを目的としています。</p>
-
-		<p><strong>適用範囲</strong><br>
-		このポリシーは、ホットミルクボットのベータ版および正式版を利用する全てのユーザーに適用されます。</p>
-
-		<h2>ベータ版の注意事項</h2>
-
-		<ul>
-			<li><strong>セキュリティリスクの可能性:</strong> ベータ版においては、新機能の試験や改善が行われているため、想定外の不具合やセキュリティ上の問題が発生する可能性があります。これにより、一部ユーザーのデータやメッセージが誤って処理されることがあります。</li>
-
-			<li><strong>収集されるデータ:</strong> ボットは、サーバー名、チャンネル名、ユーザー名、メッセージ内容に関する情報を収集します。これらの情報は、サービス提供のために必要不可欠であり、ボットのパフォーマンス向上のために使用されますが、その他の個人情報やデータは収集しません。</li>
-
-			<li><strong>問題が発生した場合:</strong> ベータ版の使用中にセキュリティ上の問題や不具合が発生した場合、ボットは<em class="important">緊急停止</em>し、エラーの改善に全力で努めます。ユーザーに不安を与えないよう迅速な対応を行いますが、完全な保証はできません。問題が発生した際は速やかにサポート窓口へご連絡ください。</li>
-		</ul>
-
-		<h2>正式版のセキュリティ対策</h2>
-
-		<ul>
-			<li><strong>セキュリティ向上:</strong> 正式版では、ベータ版におけるセキュリティの問題点を完全に除去し、強化されたセキュリティ機能を実装します。これにより、ボットの信頼性が向上し、ユーザーの個人情報がより安全に保護されます。</li>
-
-			<li><strong>データ管理:</strong> 正式版では、収集される情報に関しても明確な取り扱い基準を設け、適切な暗号化技術を用いてデータの保護を行います。ユーザーの同意なく、個人情報の第三者提供は行いません。</li>
-
-			<li><strong>ユーザーサポート:</strong> 正式版では、万が一のセキュリティ問題が発生した場合でも、迅速かつ透明性のあるサポート体制を提供します。ユーザーが安心して利用できるよう、定期的なセキュリティ更新とチェックを行います。</li>
-		</ul>
-
-		<h2>緊急対応</h2>
-		<ul>
-			<li><strong>セキュリティ問題が発覚した場合:</strong> ボットは自動的に停止し、問題の確認および解決作業を開始します。問題が解決するまで、ボットは再稼働しません。</li>
-
-			<li><strong>ユーザーへの通知:</strong> ユーザーへの通知と謝罪を迅速に行い、問題解決のための進捗を随時報告します。</li>
-		</ul>
-    </section>
-	<a href="./hotmilk.html" style="display: block; text-align: center;">戻る</a>
-    <footer>
-        <p>© 2025 ホットミルクボット.</p>
-		<p xmlns:cc="http://creativecommons.org/ns#" >This work is licensed under <a href="https://creativecommons.org/licenses/by/4.0/?ref=chooser-v1" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">CC BY 4.0<img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1" alt=""><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1" alt=""></a></p>
-		<p><a href="./hotmilk_sp.html">プライバシーポリシー</a></p>
-		<p><a href="https://forms.gle/CqG1hgXsJsJJieLU8">お問い合わせ</a></p>
-    </footer>
-</body>
-
+				<li><strong>ユーザーサポート:</strong>正式版では、万が一のセキュリティ問題が発生した場合でも、迅速かつ透明性のあるサポート体制を提供します。ユーザーが安心して利用できるよう、定期的なセキュリティ更新とチェックを行います。</li>
+			</ul>
+			<h2>緊急対応</h2>
+			<ul>
+				<li><strong>セキュリティ問題が発覚した場合:</strong>ボットは自動的に停止し、問題の確認および解決作業を開始します。問題が解決するまで、ボットは再稼働しません。</li>
+				<li><strong>ユーザーへの通知:</strong>ユーザーへの通知と謝罪を迅速に行い、問題解決のための進捗を随時報告します。</li>
+			</ul>
+		</section>
+		<a href="./hotmilk.html" style="display: block; text-align: center;">戻る</a>
+		<footer>
+			<p>© 2025 ホットミルクボット.</p>
+			<p xmlns:cc="http://creativecommons.org/ns#">This work is licensed under<a href="https://creativecommons.org/licenses/by/4.0/?ref=chooser-v1" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">CC BY 4.0<img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1" alt=""/><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1" alt=""/></a></p>
+			<p><a href="./hotmilk_sp.html">プライバシーポリシー</a></p>
+			<p><a href="https://forms.gle/CqG1hgXsJsJJieLU8">お問い合わせ</a></p>
+		</footer>
+	</body>
 </html>

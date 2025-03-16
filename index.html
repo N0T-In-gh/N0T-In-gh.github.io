@@ -1,96 +1,200 @@
-<html>  
-<head>  
-    <link rel="preconnect" href="https://fonts.googleapis.com">  
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>  
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">  
-    <title>N∅T's Home page.</title>  
-    <style>  
-        body {  
-            font-family: "Orbitron", sans-serif;  
-            background-image: url("./bg.jpg");  
-            backdrop-filter: blur(2em) brightness(50%);  
-            background-size: cover;  
-            display: flex;  
-            font-size: min(calc((1vw + 1vh) / 1.5), 5rem); 
-            justify-content: center;  
-            align-items: center;  
-            height: 100vh;  
-            margin: 0;  
-            letter-spacing: 0.1em;  
-        }  
-  
-        .container { 
-            position: relative; 
-            text-align: center; 
-            margin: 5vw; 
-            width: 50%; 
-            height: 75%; 
-            backdrop-filter: blur(10px); 
-            background: linear-gradient(135deg, rgba(0, 255, 127, 0.1), rgba(0, 255, 255, 0.1)); 
-            box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5); 
-            border-radius: 2em; 
-            padding: 2em; 
-            display: flex; 
-            flex-direction: column; 
-            justify-content: center; 
-            align-items: center;  
-            animation: slideUp 1s ease-out;
-        } 
-  
-        @keyframes slideUp {
-            from {
-                transform: translateY(20px);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-  
-        .notimg { 
-            width: 16em; 
-            border-radius: 50%; 
-            animation: rotate 1.5s ease-out;
-        } 
-  
-        @keyframes rotate {
-            0% {
-                transform: rotate(540deg);
-            }
-            100% {
-                transform: rotate(0deg);
-            }
-        }
+<html>
+	<head>
+		<link rel="preconnect" href="https://fonts.googleapis.com"/>
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+		<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet"/>
+		<meta charset="UTF-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+		<title>N∅T's website</title>
+		<link rel="icon" href="not.ico"/>
+		<title>N∅T's Home page.</title>
+		<style>
+			html {  
+			overflow: hidden;  
+			scroll-behavior: smooth;  
+			}  
+			body {     
+			font-family: "Orbitron", sans-serif;     
+			background-image: url("./bg.jpg");     
+			backdrop-filter: blur(2em) brightness(50%);     
+			background-size: cover;     
+			display: flex;     
+			flex-direction: column;  
+			justify-content: flex-start;  
+			align-items: center;     
+			margin: 0;     
+			font-size: min(calc((1vw + 1vh) / 1.5), 5rem);    
+			letter-spacing: 0.1em;  	  
+			overflow: hidden;  
+			scroll-behavior: smooth;  
+			color: #ffffff;  
+			}  
+			.container {   
+			position: relative;   
+			text-align: center;   
+			margin: 12.5vh;  
+			width: 50vw;   
+			height: 75vh;   
+			backdrop-filter: blur(4em);   
+			background: linear-gradient(135deg, rgba(0, 255, 127, 0.1), rgba(0, 255, 255, 0.1));   
+			box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);   
+			border-radius: 2em;   
+			padding: 2em;   
+			display: flex;   
+			flex-direction: column;   
+			justify-content: center;   
+			align-items: center;    
+			animation: slideUp 1s ease-out;  
+			position: relative;    
+			bottom: 5vh;    
+			}   
+			@keyframes slideUp {  
+			from {  
+			  transform: translateY(20px);  
+			  opacity: 0;  
+			}  
+			to {  
+			  transform: translateY(0);  
+			  opacity: 1;  
+			}  
+			}  
+			.notimg {   
+			width: 16em;   
+			border-radius: 50%;   
+			animation: rotate 1.5s ease-out;  
+			}   
+			@keyframes rotate {  
+			0% {  
+			  transform: rotate(540deg);  
+			}  
+			100% {  
+			  transform: rotate(0deg);  
+			}  
+			}  
+			h1 {   
+			color: white;   
+			user-select: text;   
+			}   
+			nav a {   
+			font-weight: bold;   
+			text-decoration: none;   
+			}  
+			nav a:hover {   
+			text-decoration: underline;  
+			}  
+			.∅ {    
+			height: 1em;    
+			margin: 0.1em;    
+			position: relative;    
+			top: 0.2em;    
+			}    
+			.pardon {  
+			color: rgba(255, 255, 255, 0.5);  
+			position: relative;    
+			top: 10vh;  
+			font-size: 0.75em;  
+			}  
+			#explodeContainer {  
+			position: fixed;  
+			top: 0;  
+			left: 0;  
+			width: 100%;  
+			height: 100%;  
+			background: black;  
+			display: none;  
+			justify-content: center;  
+			align-items: center;  
+			}  
+			#explode {  
+			width: 100vw;  
+			height: 100vh; 
+			position: relative;    
+			bottom: 51.5vh; 
+			}  
+			#face{
+			display: none;
+			font-size:2em;
+			font-family:sans-serif;
+			}
+			#all{
+			appearance: none;
+			}
+			.aid{
+			display:block;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="all">
+			<a id="start" class="aid"/>
+			<div class="container">
+				<img src="./not.png" alt="N∅T Logo" class="notimg" onclick="boom();"/>
+				<h1>N<img src="./∅.png" alt="∅" class="∅"/>T's Home page.</h1>
+				<nav>
+					<a href="./hotmilk.html" style="color:#a0417a;">Hotmilk</a>
+					<a href="#about" style="color:#ffffff;">About</a>
+				</nav>
+			</div>
+			<a id="about" class="aid"/>
+			<div class="container">
+				<p>My name is<b>N<img src="./∅.png" alt="∅" class="∅"/>T</b>.</p>
+				<p>I do not have the right to vote in Japan.</p>
+				<a href="#start" class="pardon">Pardon?</a>
+			</div>
+			<div id="explodeContainer">
+				<video id="explode" autoplay>
+				<source src="explode.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+				</video>
+			</div>
+		</div>
+		<p id="face" onclick="updateContent();">(・＿・)</p>
+		<script>
+			function boom() {  
+				const explodeContainer = document.getElementById('explodeContainer'); 
+				explodeContainer.style.display = 'flex'; 
+				const explode = document.getElementById('explode'); 
+				const all = document.getElementById('all'); 
+				const face = document.getElementById('face'); 
+				explode.onended = function() { 
+				  all.style.display = 'none';  
+				  face.style.display = 'flex'; 
+				};
+			};
+			const contentData = [
+				"(・＿・)",
+				"(・＿・)ずいぶん物好きだな、お前",
+				"(・＿・)え？お前誰かって？",
+				"(・ー・)名乗るようなものじゃない",
+				"(・＿・)君は奇妙だな、なんでこんなサイトに?",
+				"(・ｖ＜)こういう顔の奴を探してるのか？",
+				"(・＿・)ならリロードするんだな。",
+				"(・＿・)俺は黙る",
+				"(・＿・)...",
+				"(・＿・)...",
+				"(・＿・)なんでまだいるんだ？",
+				"(・＿・)...",
+				"(・＿・)...",
+				"(・＿・)...",
+				"(・＿・)本当にこれ以上は何も言わないからな。",
+				"(・＿・)...",
+				"(・＿・)...",
+				"(ー＿ー)..."
+			];
 
-        h1 { 
-            color: white; 
-            user-select: text; 
-        } 
-        nav a { 
-            font-weight: bold; 
-            text-decoration: none; 
-        } 
-  
-        nav a:hover { 
-			text-decoration: underline;
-        } 
-  
-        .∅ {  
-            height: 1em;  
-            margin: 0.1em;  
-            position: relative;  
-            top: 0.2em;  
-        }  
-    </style>  
-</head>  
-<body>  
-<div class="container">  
-    <img src="./not.png" alt="N∅T Logo" class="notimg">  
-    <h1>N<img src="./∅.png" alt="∅" class="∅">T's Home page.</h1>  
-    <nav> 
-        <a href="./hotmilk.html" style="color:#a0417a;">Hotmilk</a> 
-    </nav> 
-</div>  
-</body>  
+			let currentIndex = 0; // 現在のインデックス
+
+			function updateContent() {
+				const currentContent = contentData[currentIndex];
+
+				const face = document.getElementById('face');
+				face.textContent = currentContent;
+				if (currentIndex			< contentData.length - 1) {
+				  currentIndex++; 次の要素へ進む
+				}
+			  }
+
+			  updateContent();
+		</script>
+	</body>
 </html>
