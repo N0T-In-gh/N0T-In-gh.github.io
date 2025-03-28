@@ -1,2 +1,2 @@
-# N0T-In-gh.github.io
-ganbaru
+This is my website, that's it.
+.ti s'taht ,etisbew ym si sihT
