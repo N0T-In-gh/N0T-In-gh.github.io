@@ -16,6 +16,7 @@
 			body {     
 			font-family: "Orbitron", sans-serif;     
 			background-image: url("./bg.jpg");     
+			background-size: cover;
 			backdrop-filter: blur(2em) brightness(50%);     
 			background-size: cover;     
 			display: flex;     
@@ -132,14 +133,8 @@
 				<h1>N<img src="./∅.png" alt="∅" class="∅"/>T's Home page.</h1>
 				<nav>
 					<a href="./hotmilk.html" style="color:#a0417a;">Hotmilk</a>
-					<a href="#about" style="color:#ffffff;">About</a>
+					<a href="./about.html" style="color:#ffffff;">About</a>
 				</nav>
-			</div>
-			<a id="about" class="aid"/>
-			<div class="container">
-				<p>My name is <b>N<img src="./∅.png" alt="∅" class="∅"/>T</b>.</p>
-				<p>I do not have the right to vote in Japan.</p>
-				<a href="#start" class="pardon">Pardon?</a>
 			</div>
 			<div id="explodeContainer">
 				<video id="explode" autoplay muted>
@@ -182,7 +177,7 @@
 				"(ー＿ー)..."
 			];
 
-			let currentIndex = 0; // 現在のインデックス
+			let currentIndex = 0;
 
 			function updateContent() {
 				const currentContent = contentData[currentIndex];
@@ -190,7 +185,7 @@
 				const face = document.getElementById('face');
 				face.textContent = currentContent;
 				if (currentIndex			< contentData.length - 1) {
-				  currentIndex++; 次の要素へ進む
+				  currentIndex++;
 				}
 			  }
 
