@@ -6,10 +6,16 @@
         body { margin: 0; overflow: hidden; }
         canvas { display: block; }
         #cameraSelect { position: absolute; top: 10px; left: 10px; z-index: 10; }
+        #cameraButtons { position: absolute; top: 10px; right: 10px; z-index: 10; }
+        #cameraButtons button { margin-left: 5px; padding: 8px 12px; }
     </style>
 </head>
 <body>
     <select id="cameraSelect"></select>
+    <div id="cameraButtons">
+        <button id="rearCameraButton">リアカメラ</button>
+        <button id="frontCameraButton">フロントカメラ</button>
+    </div>
     <video id="cameraFeed" autoplay playsinline style="display:none;"></video>
     <canvas id="outputCanvas"></canvas>
     <script>
@@ -17,11 +23,14 @@
         const canvas = document.getElementById('outputCanvas');
         const ctx = canvas.getContext('2d');
         const cameraSelect = document.getElementById('cameraSelect');
+        const rearCameraButton = document.getElementById('rearCameraButton');
+        const frontCameraButton = document.getElementById('frontCameraButton');
         let frameHistory = [];
         let maxHistoryLength = 480; // デフォルト値
         let currentDeviceId = null;
         let videoWidth = 640; // デフォルト値
         let videoHeight = 480; // デフォルト値
+        let currentFacingMode = "user"; // 初期設定はフロントカメラ
 
         async function setupCanvas() {
             canvas.width = videoWidth;
@@ -43,8 +52,7 @@
                 });
 
                 if (videoDevices.length > 0) {
-                    currentDeviceId = videoDevices[0].deviceId;
-                    startCamera(currentDeviceId);
+                    startCamera(); // 最初は facingMode で起動
                 }
             } catch (err) {
                 console.error("カメラデバイスの列挙に失敗しました:", err);
@@ -59,27 +67,44 @@
             }
 
             try {
-                const constraints = {
-                    video: { deviceId: { exact: deviceId } },
+                let constraints = {
+                    video: {},
                     audio: false
                 };
+
+                if (deviceId) {
+                    constraints.video.deviceId = { exact: deviceId };
+                } else {
+                    constraints.video.facingMode = { exact: currentFacingMode };
+                }
+
                 const stream = await navigator.mediaDevices.getUserMedia(constraints);
                 video.srcObject = stream;
                 video.onloadedmetadata = () => {
                     videoWidth = video.videoWidth;
                     videoHeight = video.videoHeight;
-                    setupCanvas();
+                    setupCanvas(); // カメラ切り替え時にも canvas サイズを更新
                     video.play();
                     requestAnimationFrame(processFrame);
                 };
             } catch (err) {
-                console.error(`カメラ (ID: ${deviceId}) の起動に失敗しました:`, err);
+                console.error(`カメラ (ID: ${deviceId || currentFacingMode}) の起動に失敗しました:`, err);
             }
         }
 
+        rearCameraButton.addEventListener('click', () => {
+            currentFacingMode = "environment";
+            startCamera();
+        });
+
+        frontCameraButton.addEventListener('click', () => {
+            currentFacingMode = "user";
+            startCamera();
+        });
+
         cameraSelect.addEventListener('change', (event) => {
             const selectedDeviceId = event.target.value;
-            startCamera(selectedDeviceId);
+            startCamera(selectedDeviceId); // ドロップダウンリストからの選択は deviceId を使用
         });
 
         function processFrame() {
