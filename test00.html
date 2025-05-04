@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Time Transition Camera</title>
+    <style>
+        body { margin: 0; }
+        canvas { display: block; }
+    </style>
+</head>
+<body>
+    <video id="cameraFeed" width="640" height="480" autoplay playsinline style="display:none;"></video>
+    <canvas id="outputCanvas" width="640" height="480"></canvas>
+    <script>
+        const video = document.getElementById('cameraFeed');
+        const canvas = document.getElementById('outputCanvas');
+        const ctx = canvas.getContext('2d');
+        const frameHistory = [];
+        const maxHistoryLength = 480;
+
+        async function startCamera() {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
+                video.srcObject = stream;
+                video.play();
+                requestAnimationFrame(processFrame);
+            } catch (err) {
+                console.error("カメラへのアクセスに失敗しました:", err);
+            }
+        }
+
+        function processFrame() {
+            if (video.readyState === video.HAVE_ENOUGH_DATA) {
+                ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+                const currentFrame = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                frameHistory.push(currentFrame.data.slice()); // ピクセルデータをコピー
+                if (frameHistory.length > maxHistoryLength) {
+                    frameHistory.shift();
+                }
+
+                const outputData = new Uint8ClampedArray(currentFrame.data);
+                const height = canvas.height;
+                const historyLength = frameHistory.length;
+
+                for (let y = 0; y < height; y++) {
+                    const alpha = y / height;
+                    const historyIndex = Math.floor((historyLength - 1) * alpha);
+                    if (historyIndex >= 0 && historyIndex < historyLength) {
+                        const pastFrameData = frameHistory[historyIndex];
+                        const rowStart = y * canvas.width * 4;
+                        const rowEnd = rowStart + canvas.width * 4;
+                        for (let i = rowStart; i < rowEnd; i += 4) {
+                            outputData[i] = pastFrameData[i];     // R
+                            outputData[i + 1] = pastFrameData[i + 1]; // G
+                            outputData[i + 2] = pastFrameData[i + 2]; // B
+                            outputData[i + 3] = 255;               // A
+                        }
+                    }
+                }
+                ctx.putImageData(new ImageData(outputData, canvas.width, canvas.height), 0, 0);
+            }
+            requestAnimationFrame(processFrame);
+        }
+
+        startCamera();
+    </script>
+</body>
+</html>
