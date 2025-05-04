@@ -3,36 +3,90 @@
 <head>
     <title>Time Transition Camera</title>
     <style>
-        body { margin: 0; }
+        body { margin: 0; overflow: hidden; }
         canvas { display: block; }
+        #cameraSelect { position: absolute; top: 10px; left: 10px; z-index: 10; }
     </style>
 </head>
 <body>
-    <video id="cameraFeed" width="640" height="480" autoplay playsinline style="display:none;"></video>
-    <canvas id="outputCanvas" width="640" height="480"></canvas>
+    <select id="cameraSelect"></select>
+    <video id="cameraFeed" autoplay playsinline style="display:none;"></video>
+    <canvas id="outputCanvas"></canvas>
     <script>
         const video = document.getElementById('cameraFeed');
         const canvas = document.getElementById('outputCanvas');
         const ctx = canvas.getContext('2d');
-        const frameHistory = [];
-        const maxHistoryLength = 480;
+        const cameraSelect = document.getElementById('cameraSelect');
+        let frameHistory = [];
+        let maxHistoryLength = 480; // デフォルト値
+        let currentDeviceId = null;
+        let videoWidth = 640; // デフォルト値
+        let videoHeight = 480; // デフォルト値
 
-        async function startCamera() {
+        async function setupCanvas() {
+            canvas.width = videoWidth;
+            canvas.height = videoHeight;
+            maxHistoryLength = videoHeight;
+            frameHistory = []; // サイズ変更時に履歴をクリア
+        }
+
+        async function populateCameras() {
             try {
-                const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
-                video.srcObject = stream;
-                video.play();
-                requestAnimationFrame(processFrame);
+                const devices = await navigator.mediaDevices.enumerateDevices();
+                const videoDevices = devices.filter(device => device.kind === 'videoinput');
+
+                videoDevices.forEach(device => {
+                    const option = document.createElement('option');
+                    option.value = device.deviceId;
+                    option.textContent = device.label || `Camera ${cameraSelect.options.length + 1}`;
+                    cameraSelect.appendChild(option);
+                });
+
+                if (videoDevices.length > 0) {
+                    currentDeviceId = videoDevices[0].deviceId;
+                    startCamera(currentDeviceId);
+                }
             } catch (err) {
-                console.error("カメラへのアクセスに失敗しました:", err);
+                console.error("カメラデバイスの列挙に失敗しました:", err);
             }
         }
+
+        async function startCamera(deviceId) {
+            if (video.srcObject) {
+                const tracks = video.srcObject.getTracks();
+                tracks.forEach(track => track.stop());
+                video.srcObject = null;
+            }
+
+            try {
+                const constraints = {
+                    video: { deviceId: { exact: deviceId } },
+                    audio: false
+                };
+                const stream = await navigator.mediaDevices.getUserMedia(constraints);
+                video.srcObject = stream;
+                video.onloadedmetadata = () => {
+                    videoWidth = video.videoWidth;
+                    videoHeight = video.videoHeight;
+                    setupCanvas();
+                    video.play();
+                    requestAnimationFrame(processFrame);
+                };
+            } catch (err) {
+                console.error(`カメラ (ID: ${deviceId}) の起動に失敗しました:`, err);
+            }
+        }
+
+        cameraSelect.addEventListener('change', (event) => {
+            const selectedDeviceId = event.target.value;
+            startCamera(selectedDeviceId);
+        });
 
         function processFrame() {
             if (video.readyState === video.HAVE_ENOUGH_DATA) {
                 ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
                 const currentFrame = ctx.getImageData(0, 0, canvas.width, canvas.height);
-                frameHistory.push(currentFrame.data.slice()); // ピクセルデータをコピー
+                frameHistory.push(currentFrame.data.slice());
                 if (frameHistory.length > maxHistoryLength) {
                     frameHistory.shift();
                 }
@@ -49,10 +103,10 @@
                         const rowStart = y * canvas.width * 4;
                         const rowEnd = rowStart + canvas.width * 4;
                         for (let i = rowStart; i < rowEnd; i += 4) {
-                            outputData[i] = pastFrameData[i];     // R
-                            outputData[i + 1] = pastFrameData[i + 1]; // G
-                            outputData[i + 2] = pastFrameData[i + 2]; // B
-                            outputData[i + 3] = 255;               // A
+                            outputData[i] = pastFrameData[i];
+                            outputData[i + 1] = pastFrameData[i + 1];
+                            outputData[i + 2] = pastFrameData[i + 2];
+                            outputData[i + 3] = 255;
                         }
                     }
                 }
@@ -61,7 +115,7 @@
             requestAnimationFrame(processFrame);
         }
 
-        startCamera();
+        populateCameras();
     </script>
 </body>
 </html>
