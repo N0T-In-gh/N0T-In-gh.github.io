@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <title>Cyber Bot Status</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      background-color: #f1f3f4;
+      font-family: 'Roboto', 'Segoe UI', sans-serif;
+      color: #202124;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .status-box {
+      background: #fff;
+      border: 1px solid #dadce0;
+      border-radius: 12px;
+      padding: 40px 50px;
+      text-align: center;
+      min-width: 300px;
+      max-width: 90vw;
+      width: 100%;
+      box-shadow: 0 4px 12px rgba(60, 64, 67, 0.15);
+      transition: all 0.3s ease;
+    }
+
+    .status-main {
+      font-size: 2.4rem;
+      font-weight: 500;
+      margin-bottom: 0.8rem;
+      min-height: 2.8rem;
+      transition: color 0.3s ease;
+    }
+    .online {
+      color: #1a73e8;
+    }
+    .idle {
+      color: #fbbc04;
+    }
+    .offline {
+      color: #5f6368;
+    }
+    .error {
+      color: #d93025;
+    }
+
+    .status-sub {
+      font-size: 1.2rem;
+      color: #5f6368;
+    }
+  </style>
+</head>
+<body>
+  <div class="status-box">
+    <div class="status-main online" id="main-status">読み込み中...</div>
+    <div class="status-sub" id="sub-status">接続確認中...</div>
+  </div>
+
+  <script>
+    const mainStatusEl = document.getElementById("main-status");
+    const subStatusEl = document.getElementById("sub-status");
+    const STATUS_URL = "https://chnoma.click/pc";
+
+    function setStatus(mainText, subText, statusClass = "") {
+      mainStatusEl.textContent = mainText;
+      subStatusEl.textContent = subText;
+
+      mainStatusEl.className = "status-main";
+      if (statusClass) {
+        mainStatusEl.classList.add(statusClass);
+      }
+    }
+
+    function updateStatus(status) {
+      switch (status) {
+        case "online":
+          setStatus("オンライン", "ボット稼働中", "online");
+          break;
+        case "idle":
+          setStatus("待機中", "ボット稼働中", "idle");
+          break;
+        default:
+          setStatus(`不明なステータス: ${status}`, "エラー", "error");
+          break;
+      }
+    }
+
+    async function fetchStatus() {
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 5000);
+
+      try {
+        const response = await fetch(STATUS_URL, { signal: controller.signal });
+        clearTimeout(timeout);
+
+        if (!response.ok) {
+          setStatus(`${response.status} エラー`, "エラー", "error");
+          return;
+        }
+
+        const statusText = (await response.text()).trim().toLowerCase();
+        updateStatus(statusText);
+      } catch (error) {
+        clearTimeout(timeout);
+
+        if (error.name === "AbortError") {
+          setStatus("オフライン", "ボット停止中", "offline");
+        } else {
+          setStatus(error.message, "エラー", "error");
+        }
+      }
+    }
+
+    fetchStatus();
+    setInterval(fetchStatus, 10000);
+  </script>
+</body>
+</html>
