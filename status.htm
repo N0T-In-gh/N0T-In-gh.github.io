@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8" />
-  <title>Cyber Bot Status</title>
+  <title>Status</title>
   <style>
     * {
       margin: 0;
@@ -87,7 +87,7 @@
           setStatus("オンライン", "ボット稼働中", "online");
           break;
         case "idle":
-          setStatus("待機中", "ボット稼働中", "idle");
+          setStatus("オフライン", "ボット稼働中", "idle");
           break;
         default:
           setStatus(`不明なステータス: ${status}`, "エラー", "error");
