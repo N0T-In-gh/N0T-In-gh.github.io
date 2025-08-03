@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8" />
-  <title>Status</title>
+  <title>Cyber Bot Status</title>
   <style>
     * {
       margin: 0;
@@ -45,9 +45,6 @@
       color: #1a73e8;
     }
     .idle {
-      color: #fbbc04;
-    }
-    .offline {
       color: #5f6368;
     }
     .error {
@@ -96,13 +93,10 @@
     }
 
     async function fetchStatus() {
-      const controller = new AbortController();
-      const timeout = setTimeout(() => controller.abort(), 5000);
-
       try {
-        const response = await fetch(STATUS_URL, { signal: controller.signal });
-        clearTimeout(timeout);
+        const response = await fetch(STATUS_URL);
 
+        // HTTPエラー（404, 500など）は error 扱い
         if (!response.ok) {
           setStatus(`${response.status} エラー`, "エラー", "error");
           return;
@@ -111,13 +105,8 @@
         const statusText = (await response.text()).trim().toLowerCase();
         updateStatus(statusText);
       } catch (error) {
-        clearTimeout(timeout);
-
-        if (error.name === "AbortError") {
-          setStatus("オフライン", "ボット停止中", "offline");
-        } else {
-          setStatus(error.message, "エラー", "error");
-        }
+        // fetch失敗（CORS、ネットワーク、接続断など）
+        setStatus("オフライン", "ボット停止中", "idle");
       }
     }
 
