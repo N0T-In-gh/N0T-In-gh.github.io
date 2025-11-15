@@ -1,0 +1,32 @@
+name: Daily Countdown
+
+on:
+  schedule:
+    - cron: "0 0 * * *"  # 毎日0時
+  workflow_dispatch:
+
+jobs:
+  send_countdown:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send countdown
+        run: |
+          TARGET="2026-02-03 00:00:00"
+          NOW=$(date -u +"%Y-%m-%d %H:%M:%S")
+
+          TARGET_TS=$(date -ud "$TARGET" +%s)
+          NOW_TS=$(date -ud "$NOW" +%s)
+
+          DIFF_SEC=$((TARGET_TS - NOW_TS))
+          if [ $DIFF_SEC -lt 0 ]; then
+            DAYS_LEFT=0
+          else
+            DAYS_LEFT=$((DIFF_SEC / 86400))
+          fi
+
+          CONTENT="${DAYS_LEFT}"
+
+          curl -H "Content-Type: application/json" \
+            -X POST \
+            -d "{\"username\": \"Count down\", \"avatar_url\": \"https://n0t-in-gh.github.io/countdown.png\", \"content\": \"${CONTENT}\"}" \
+            "${{ secrets.WEBHOOK }}"
