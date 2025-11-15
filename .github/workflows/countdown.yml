@@ -2,20 +2,22 @@ name: Daily Countdown
 
 on:
   schedule:
-    - cron: "0 0 * * *"  # 毎日0時
+    - cron: "0 15 * * *"
   workflow_dispatch:
 
 jobs:
   send_countdown:
     runs-on: ubuntu-latest
     steps:
-      - name: Send countdown
+      - name: Send countdown (JST)
         run: |
-          TARGET="2026-02-03 00:00:00"
-          NOW=$(date -u +"%Y-%m-%d %H:%M:%S")
+          TZ='Asia/Tokyo'
 
-          TARGET_TS=$(date -ud "$TARGET" +%s)
-          NOW_TS=$(date -ud "$NOW" +%s)
+          TARGET="2026-02-03 00:00:00"
+          NOW=$(TZ='Asia/Tokyo' date +"%Y-%m-%d %H:%M:%S")
+
+          TARGET_TS=$(TZ='Asia/Tokyo' date -d "$TARGET" +%s)
+          NOW_TS=$(TZ='Asia/Tokyo' date -d "$NOW" +%s)
 
           DIFF_SEC=$((TARGET_TS - NOW_TS))
           if [ $DIFF_SEC -lt 0 ]; then
