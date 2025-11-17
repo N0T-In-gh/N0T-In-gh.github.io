@@ -2,7 +2,7 @@ name: Daily Countdown
 
 on:
   schedule:
-    - cron: "0 15 * * *"  # UTC 15:00 = JST 00:00
+    - cron: "52 14 * * *"
   workflow_dispatch:
 
 jobs:
@@ -14,7 +14,8 @@ jobs:
           TZ='Asia/Tokyo'
 
           TARGET="2026-02-03"
-          NOW=$(TZ='Asia/Tokyo' date +"%Y-%m-%d")
+
+          NOW=$(TZ='Asia/Tokyo' date -d "8 minutes" +"%Y-%m-%d")
 
           TARGET_TS=$(TZ='Asia/Tokyo' date -d "$TARGET" +%s)
           NOW_TS=$(TZ='Asia/Tokyo' date -d "$NOW" +%s)
