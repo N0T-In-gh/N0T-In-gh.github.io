@@ -26,8 +26,3 @@ jobs:
           fi
 
           CONTENT="${DAYS_LEFT}"
-
-          curl -H "Content-Type: application/json" \
-            -X POST \
-            -d "{\"username\": \"Count down\", \"avatar_url\": \"https://n0t-in-gh.github.io/countdown.png\", \"content\": \"${CONTENT}\"}" \
-            "${{ secrets.WEBHOOK }}"
